@@ -1,0 +1,14 @@
+apiVersion: 1
+providers:
+  - name: "Monitoring"
+    orgId: 1
+    folder: ""
+    type: file
+    disableDeletion: false
+    # false: provisioned dashboard'lar arayüzden kaydedilemez.
+    # true yapma -- Grafana kaydı kabul eder ama provisioning bir sonraki
+    # turunda (30 sn) sessizce geri alır. Düzenlemek için "Save as copy".
+    allowUiUpdates: false
+    updateIntervalSeconds: 30
+    options:
+      path: /var/lib/grafana/dashboards

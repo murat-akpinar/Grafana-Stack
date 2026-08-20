@@ -1,0 +1,34 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /promtail/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  # nginx access log — JSON formatında olmalı, bkz. nginx/log-json.conf
+  - job_name: nginx
+    static_configs:
+      - targets: ['localhost']
+        labels:
+          job: nginx
+          __path__: /var/log/nginx/access.log
+    pipeline_stages:
+      # dashboard stream seçicisi {filename=..., host=...} kullanıyor,
+      # host JSON alanı label'a çıkarılmazsa hiçbir panel veri görmez
+      - json:
+          expressions:
+            host: host
+      - labels:
+          host:
+
+  # ssh (auth) log — ham satır yeterli, dashboard | pattern ile ayrıştırıyor
+  - job_name: authlog
+    static_configs:
+      - targets: ['localhost']
+        labels:
+          job: authlog
+          __path__: /var/log/auth.log

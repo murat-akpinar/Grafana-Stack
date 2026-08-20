@@ -1,0 +1,1876 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Nginx access log analytics dashboard using Promtail and Loki v2+. Prometheus datasource is created from Loki service.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": 0
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 22,
+      "interval": "1h",
+      "maxDataPoints": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "count(sum by (remote_addr) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | remote_addr !~ \"2001:4ca0:108:42::*\" | remote_addr !=\"62.210.149.41\" | remote_addr !~ \"91.134.156.*\" | remote_addr !~ \"37.59.149.*\" | http_user_agent != \"worldping-api\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" | remote_addr != `217.131.101.19` | __error__=\"\" [1h])))",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": "1h",
+      "title": "Unique user visits",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": 0
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      "id": 31,
+      "interval": "24h",
+      "maxDataPoints": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(\r\n  count_over_time(\r\n    {filename=\"$filename\", host=\"$host\"}\r\n    | json\r\n    | http_user_agent !~ \".*bot.*\"\r\n    | http_user_agent !~ \".*crawler.*\"\r\n    | remote_addr !~ \"2001:4ca0:108:42::*\"\r\n    | remote_addr != \"62.210.149.41\"\r\n    | remote_addr != \"172.21.0.2\"\r\n    | remote_addr !~ \"91.134.156.*\"\r\n    | remote_addr !~ \"37.59.149.*\"\r\n    | http_user_agent != \"worldping-api\"\r\n    | request_uri !~ \"/wp-.*\"\r\n    | request_uri !~ \"//wp-.*\"\r\n    | request_uri !~ \"/.*wordfence.*\"\r\n    | request_uri !~ \"/robots.txt\"\r\n    | request_uri !~ \"/xmlrpc.php\"\r\n    | remote_addr != `217.131.101.19`\r\n    | __error__=\"\"\r\n    [24h]\r\n  )\r\n)",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": "24h",
+      "title": "Unique user visits",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": 0
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "id": 33,
+      "interval": "2d",
+      "maxDataPoints": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(\r\n  count_over_time(\r\n    {filename=\"$filename\", host=\"$host\"}\r\n    | json\r\n    | http_user_agent !~ \".*bot.*\"\r\n    | http_user_agent !~ \".*crawler.*\"\r\n    | remote_addr !~ \"2001:4ca0:108:42::*\"\r\n    | remote_addr != \"62.210.149.41\"\r\n    | remote_addr != \"172.21.0.2\"\r\n    | remote_addr !~ \"91.134.156.*\"\r\n    | remote_addr !~ \"37.59.149.*\"\r\n    | http_user_agent != \"worldping-api\"\r\n    | request_uri !~ \"/wp-.*\"\r\n    | request_uri !~ \"//wp-.*\"\r\n    | request_uri !~ \"/.*wordfence.*\"\r\n    | request_uri !~ \"/robots.txt\"\r\n    | request_uri !~ \"/xmlrpc.php\"\r\n    | __error__=\"\"\r\n    [24h]\r\n  )\r\n)",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": "2d",
+      "title": "Unique user visits",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": 0
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 39,
+      "interval": "7d",
+      "maxDataPoints": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(\r\n  count_over_time(\r\n    {filename=\"$filename\", host=\"$host\"}\r\n    | json\r\n    | http_user_agent !~ \".*bot.*\"\r\n    | http_user_agent !~ \".*crawler.*\"\r\n    | remote_addr !~ \"2001:4ca0:108:42::*\"\r\n    | remote_addr != \"62.210.149.41\"\r\n    | remote_addr != \"172.21.0.2\"\r\n    | remote_addr !~ \"91.134.156.*\"\r\n    | remote_addr !~ \"37.59.149.*\"\r\n    | http_user_agent != \"worldping-api\"\r\n    | request_uri !~ \"/wp-.*\"\r\n    | request_uri !~ \"//wp-.*\"\r\n    | request_uri !~ \"/.*wordfence.*\"\r\n    | request_uri !~ \"/robots.txt\"\r\n    | request_uri !~ \"/xmlrpc.php\"\r\n    | __error__=\"\"\r\n    [24h]\r\n  )\r\n)",
+          "instant": false,
+          "legendFormat": "",
+          "queryType": "range",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": "7d",
+      "title": "Unique user visits",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#96D98D",
+                "value": 0
+              },
+              {
+                "color": "#73BF69",
+                "value": 5
+              },
+              {
+                "color": "#19730E",
+                "value": 10
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 30,
+      "maxDataPoints": 1,
+      "options": {
+        "basemap": {
+          "name": "Basemap",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": false,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 30,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "gazetteer": "public/gazetteer/countries.json",
+              "mode": "lookup"
+            },
+            "name": "Layer 0",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "dashboardVariable": false,
+          "id": "zero",
+          "lat": 0,
+          "lon": 0,
+          "noRepeat": false,
+          "zoom": 1
+        }
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "expr": "sum by (geoip_country_code) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | remote_addr !~ \"2001:4ca0:108:42::*\" | remote_addr !=\"62.210.149.41\" | remote_addr !~ \"91.134.156.*\" | remote_addr !~ \"37.59.149.*\" | http_user_agent != \"worldping-api\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" | __error__=\"\" [$__interval]))",
+          "legendFormat": "{{geoip_country_code}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ],
+      "type": "geomap"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 40,
+      "panels": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 10,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "always",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "short"
+            }
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 13
+          },
+          "id": 35,
+          "interval": "1d",
+          "maxDataPoints": 7,
+          "options": {
+            "alertThreshold": true,
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "13.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "ffvoaufgcyfpcd"
+              },
+              "expr": "count(sum by (remote_addr) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | remote_addr !~ \"2001:4ca0:108:42::*\" | remote_addr !=\"62.210.149.41\" | remote_addr !~ \"91.134.156.*\" | remote_addr !~ \"37.59.149.*\" | http_user_agent != \"worldping-api\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" |  __error__=\"\" [1d])))",
+              "legendFormat": "Unique user visit count",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": "7d",
+          "title": "Unique user visits",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 10,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "always",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "thresholds": {
+                "mode": "absolute",
+                "steps": []
+              },
+              "unit": "short"
+            }
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 22
+          },
+          "id": 38,
+          "interval": "1d",
+          "maxDataPoints": 30,
+          "options": {
+            "alertThreshold": true,
+            "legend": {
+              "calcs": [
+                "sum"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "13.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "ffvoaufgcyfpcd"
+              },
+              "expr": "count(sum by (remote_addr) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | remote_addr !~ \"2001:4ca0:108:42::*\" | remote_addr !=\"62.210.149.41\" | remote_addr !~ \"91.134.156.*\" | remote_addr !~ \"37.59.149.*\" | http_user_agent != \"worldping-api\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" |  __error__=\"\" [1d])))",
+              "legendFormat": "Unique user visit count",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": "30d",
+          "title": "Unique user visits",
+          "type": "timeseries"
+        }
+      ],
+      "title": "Visitor Graphs",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 41,
+      "title": "Sources & Behaviours",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 300
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlPu"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 27,
+        "w": 9,
+        "x": 0,
+        "y": 14
+      },
+      "id": 3,
+      "interval": "30m",
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Requests"
+          }
+        ]
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "topk(\r\n  5,\r\n  sum by (remote_addr) (\r\n    count_over_time(\r\n      {filename=\"$filename\", host=\"$host\"}\r\n      | json\r\n      | http_user_agent !~ \".*bot.*\"\r\n      | http_user_agent !~ \".*crawler.*\"\r\n      | remote_addr !~ \"2001:4ca0:108:42::*\"\r\n      | remote_addr != \"62.210.149.41\"\r\n      | remote_addr != \"172.21.0.2\"\r\n      | remote_addr != \"172.21.0.3\"\r\n      | remote_addr !~ \"91.134.156.*\"\r\n      | remote_addr !~ \"37.59.149.*\"\r\n      | http_user_agent != \"worldping-api\"\r\n      | request_uri !~ \"/wp-.*\"\r\n      | request_uri !~ \"//wp-.*\"\r\n      | request_uri !~ \"/*.wordfence.*\"\r\n      | request_uri !~ \"/robots.txt\"\r\n      | request_uri !~ \"/xmlrpc.php\"\r\n      | remote_addr != `217.131.101.19`\r\n      | __error__=\"\"\r\n      [$__interval]\r\n    )\r\n  )\r\n)",
+          "legendFormat": "{{remote_addr}}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Top IPs",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Field": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Field": "IP Address",
+              "Total": "Requests"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 300
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlPu"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 15,
+        "x": 9,
+        "y": 14
+      },
+      "id": 34,
+      "interval": "1h",
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Requests"
+          }
+        ]
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "expr": "topk(10, sum by (http_referer) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | http_user_agent != \"worldping-api\" | http_referer != \"\" and http_referer !~ \".*?$host.*?\" | http_referer !~ \".*?panxora.*?\" | http_referer != \"http://192.168.120.55:9000/\" | __error__=\"\" [$__interval]))) ",
+          "legendFormat": "{{http_referer}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Top HTTP Referers - Exclude Panxora Site",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Field": "Referer",
+              "Total": "Requests"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 300
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlPu"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 15,
+        "x": 9,
+        "y": 20
+      },
+      "id": 12,
+      "interval": "5m",
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Total"
+          }
+        ]
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "topk(10,sum by (request_uri) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | request_uri != \"/\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" | remote_addr != `217.131.101.19` | __error__=\"\" [$__interval])))",
+          "legendFormat": "{{request_uri}}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Top Requested Pages - Excluding '/'",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Field": "Page",
+              "Total": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 300
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlPu"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 15,
+        "x": 9,
+        "y": 28
+      },
+      "id": 6,
+      "interval": "1h",
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Requests"
+          }
+        ]
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "expr": "topk(5, sum by (http_referer) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | http_user_agent != \"worldping-api\" | http_referer != \"\" and http_referer !~ \".*?$host.*?\" | __error__=\"\" [$__interval])))",
+          "legendFormat": "{{http_referer}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Top HTTP Referers",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Field": "Referer",
+              "Total": "Requests"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 300
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlPu"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 15,
+        "x": 9,
+        "y": 34
+      },
+      "id": 7,
+      "interval": "1h",
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Requests"
+          }
+        ]
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "expr": "topk(10, sum by (http_user_agent) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | http_user_agent != \"worldping-api\" |  __error__=\"\" [$__interval])))",
+          "legendFormat": "{{http_user_agent}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Top User Agents",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Field": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Field": "Agent",
+              "Total": "Requests"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 42,
+      "title": "Requests & HTTP Status",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-blue",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 15,
+        "x": 0,
+        "y": 42
+      },
+      "id": 5,
+      "interval": "30s",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum by (status) (count_over_time({filename=\"$filename\", host=\"$host\"} | json |  __error__=\"\" [$__interval]))",
+          "legendFormat": "HTTP Status: {{status}}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Requests per status code",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 9,
+        "x": 15,
+        "y": 42
+      },
+      "id": 4,
+      "interval": "30s",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "expr": "sum by(host) (count_over_time({filename=\"$filename\", host=\"$host\"}[$__interval]))  ",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Total requests  ",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 15,
+        "y": 46
+      },
+      "id": 19,
+      "maxDataPoints": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "expr": " sum(rate({filename=\"$filename\", host=\"$host\"} | json | status >= 500 |__error__=\"\"[$__interval])) / (sum(rate({filename=\"$filename\", host=\"$host\"} | json | __error__=\"\"[$__interval])) / 100)",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "% of 5xx requests ",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 46
+      },
+      "id": 18,
+      "interval": "10m",
+      "maxDataPoints": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "expr": " sum(rate(({job=\"$job\", host=\"$host\"} |= \"Googlebot\")[$__interval])) / (sum(rate(({job=\"$job\", host=\"$host\"} != \"Googlebot\")[$__interval])) / 100)",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "% of requests by Googlebot",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "decbytes"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 9,
+        "x": 15,
+        "y": 50
+      },
+      "id": 8,
+      "interval": "10m",
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "expr": "sum by (host) (sum_over_time({filename=\"$filename\", host=\"$host\"} | json | status=200 | unwrap body_bytes_sent |  __error__=\"\" [$__interval]))",
+          "legendFormat": "Bytes sent",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Bytes Sent",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Total": "Bytes Sent"
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ffvoaufgcyfpcd"
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 54
+      },
+      "id": 11,
+      "options": {
+        "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "prettifyLogMessage": true,
+        "showControls": false,
+        "showFieldSelector": false,
+        "showLabels": false,
+        "showLevel": true,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "timestampResolution": "ms",
+        "unwrappedColumns": false,
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "13.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "{filename=\"$filename\", host=\"$host\"}\r\n| json \r\n| http_user_agent !~ `.*bot.*`\r\n| http_user_agent !~ `.*crawler.*`\r\n| remote_addr !~ `2001:4ca0:108:42::*`\r\n| remote_addr != `62.210.149.41`\r\n| remote_addr != `172.21.0.2`\r\n| remote_addr != `172.21.0.3`\r\n| remote_addr !~ `91.134.156.*`\r\n| remote_addr !~ `37.59.149.*`\r\n| http_user_agent != `worldping-api`\r\n| request_uri !~ `^/api/`\r\n| request_uri !~ `^/public/plugins/`\r\n| request_uri != `/livereload.js`\r\n| request_uri !~ `^/wp-`\r\n| request_uri != `/robots.txt`\r\n| request_uri != `/xmlrpc.php`\r\n| remote_addr != `217.131.101.19`\r\n| line_format `{{if eq .status \"200\"}}🟢{{else if eq .status \"201\"}}🟢{{else if eq .status \"301\"}}🟡{{else if eq .status \"302\"}}🟡{{else if eq .status \"304\"}}🟡{{else if eq .status \"400\"}}🟠{{else if eq .status \"401\"}}🟠{{else if eq .status \"403\"}}🟠{{else if eq .status \"404\"}}🟠{{else if eq .status \"500\"}}🔴{{else if eq .status \"502\"}}🔴{{else if eq .status \"503\"}}🔴{{else}}⚪{{end}} {{.status}} | 🌐 {{.remote_addr}} | {{.request_uri}}`",
+          "legendFormat": "",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Recent requests",
+      "type": "logs"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 68
+      },
+      "id": 43,
+      "panels": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s"
+            }
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 7,
+            "x": 0,
+            "y": 69
+          },
+          "id": 16,
+          "interval": "30s",
+          "options": {
+            "alertThreshold": true
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "ffvoaufgcyfpcd"
+              },
+              "expr": "quantile_over_time(0.95,{filename=\"$filename\", host=\"$host\"} | json | unwrap request_time |  __error__=\"\"  [$__interval]) by (host)",
+              "legendFormat": "95th percentile",
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "ffvoaufgcyfpcd"
+              },
+              "expr": "max by (host) (max_over_time({filename=\"$filename\", host=\"$host\"} | json | unwrap request_time |  __error__=\"\"  [$__interval]))",
+              "legendFormat": "max latency",
+              "refId": "D"
+            }
+          ],
+          "title": "95th percentile of Request Time",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 9,
+            "x": 7,
+            "y": 69
+          },
+          "id": 2,
+          "interval": "30s",
+          "options": {
+            "alertThreshold": true
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "ffvoaufgcyfpcd"
+              },
+              "expr": "sum by (status) (count_over_time({filename=\"$filename\", host=\"$host\"} | json |  __error__=\"\" [$__interval]))",
+              "legendFormat": "HTTP Status {{status}}",
+              "refId": "A"
+            }
+          ],
+          "title": "HTTP requests",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "Time",
+                    "HTTP Status 200",
+                    "HTTP Status 301",
+                    "HTTP Status 304",
+                    "HTTP Status 404",
+                    "HTTP Status 406",
+                    "HTTP Status 500"
+                  ]
+                }
+              }
+            }
+          ],
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ffvoaufgcyfpcd"
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 8,
+            "x": 16,
+            "y": 69
+          },
+          "id": 9,
+          "interval": "30s",
+          "options": {
+            "alertThreshold": true
+          },
+          "pluginVersion": "7.4.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "loki",
+                "uid": "ffvoaufgcyfpcd"
+              },
+              "expr": "sum by (host) (sum_over_time({filename=\"$filename\", host=\"$host\"} | json | status=200 | unwrap body_bytes_sent |  __error__=\"\" [$__interval]))",
+              "legendFormat": "Bytes sent",
+              "refId": "A"
+            }
+          ],
+          "title": "Bytes Sent",
+          "type": "timeseries"
+        }
+      ],
+      "title": "Request Statistics Over Time",
+      "type": "row"
+    }
+  ],
+  "preload": false,
+  "refresh": "",
+  "schemaVersion": 42,
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": true,
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "ffvoaufgcyfpcd"
+        },
+        "definition": "label_values({filename=\"/var/log/nginx/json_access.log\"}, host)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "host",
+        "multi": false,
+        "name": "host",
+        "options": [],
+        "query": "label_values({job=\"nginx\"}, host)",
+        "refresh": 1,
+        "regex": "",
+        "regexApplyTo": "value",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allowCustomValue": true,
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "ffvoaufgcyfpcd"
+        },
+        "definition": "label_values(filename)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "filename",
+        "multi": false,
+        "name": "filename",
+        "options": [],
+        "query": "label_values({job=\"nginx\"}, filename)",
+        "refresh": 2,
+        "regex": "",
+        "regexApplyTo": "value",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allowCustomValue": true,
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "ffvoaufgcyfpcd"
+        },
+        "definition": "label_values(job)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "job",
+        "multi": false,
+        "name": "job",
+        "options": [],
+        "query": "label_values(job)",
+        "refresh": 2,
+        "regex": "",
+        "regexApplyTo": "value",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Analytics - NGINX / LOKI v2+ Data Source / Promtail v2+ Tool",
+  "uid": "fgc-nginx01-web-analytics"
+}
