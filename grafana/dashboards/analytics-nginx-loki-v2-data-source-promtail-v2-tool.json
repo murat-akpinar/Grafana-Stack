@@ -75,7 +75,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "count(sum by (remote_addr) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | remote_addr !~ \"2001:4ca0:108:42::*\" | remote_addr !=\"62.210.149.41\" | remote_addr !~ \"91.134.156.*\" | remote_addr !~ \"37.59.149.*\" | http_user_agent != \"worldping-api\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" | remote_addr != `217.131.101.19` | __error__=\"\" [1h])))",
+          "expr": "count(sum by (remote_addr) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" | __error__=\"\" [1h])))",
           "legendFormat": "",
           "queryType": "range",
           "refId": "A"
@@ -143,7 +143,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "sum(\r\n  count_over_time(\r\n    {filename=\"$filename\", host=\"$host\"}\r\n    | json\r\n    | http_user_agent !~ \".*bot.*\"\r\n    | http_user_agent !~ \".*crawler.*\"\r\n    | remote_addr !~ \"2001:4ca0:108:42::*\"\r\n    | remote_addr != \"62.210.149.41\"\r\n    | remote_addr != \"172.21.0.2\"\r\n    | remote_addr !~ \"91.134.156.*\"\r\n    | remote_addr !~ \"37.59.149.*\"\r\n    | http_user_agent != \"worldping-api\"\r\n    | request_uri !~ \"/wp-.*\"\r\n    | request_uri !~ \"//wp-.*\"\r\n    | request_uri !~ \"/.*wordfence.*\"\r\n    | request_uri !~ \"/robots.txt\"\r\n    | request_uri !~ \"/xmlrpc.php\"\r\n    | remote_addr != `217.131.101.19`\r\n    | __error__=\"\"\r\n    [24h]\r\n  )\r\n)",
+          "expr": "sum(\r\n  count_over_time(\r\n    {filename=\"$filename\", host=\"$host\"}\r\n    | json\r\n    | http_user_agent !~ \".*bot.*\"\r\n    | http_user_agent !~ \".*crawler.*\"\r\n    | request_uri !~ \"/wp-.*\"\r\n    | request_uri !~ \"//wp-.*\"\r\n    | request_uri !~ \"/.*wordfence.*\"\r\n    | request_uri !~ \"/robots.txt\"\r\n    | request_uri !~ \"/xmlrpc.php\"\r\n    | __error__=\"\"\r\n    [24h]\r\n  )\r\n)",
           "legendFormat": "",
           "queryType": "range",
           "refId": "A"
@@ -211,7 +211,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "sum(\r\n  count_over_time(\r\n    {filename=\"$filename\", host=\"$host\"}\r\n    | json\r\n    | http_user_agent !~ \".*bot.*\"\r\n    | http_user_agent !~ \".*crawler.*\"\r\n    | remote_addr !~ \"2001:4ca0:108:42::*\"\r\n    | remote_addr != \"62.210.149.41\"\r\n    | remote_addr != \"172.21.0.2\"\r\n    | remote_addr !~ \"91.134.156.*\"\r\n    | remote_addr !~ \"37.59.149.*\"\r\n    | http_user_agent != \"worldping-api\"\r\n    | request_uri !~ \"/wp-.*\"\r\n    | request_uri !~ \"//wp-.*\"\r\n    | request_uri !~ \"/.*wordfence.*\"\r\n    | request_uri !~ \"/robots.txt\"\r\n    | request_uri !~ \"/xmlrpc.php\"\r\n    | __error__=\"\"\r\n    [24h]\r\n  )\r\n)",
+          "expr": "sum(\r\n  count_over_time(\r\n    {filename=\"$filename\", host=\"$host\"}\r\n    | json\r\n    | http_user_agent !~ \".*bot.*\"\r\n    | http_user_agent !~ \".*crawler.*\"\r\n    | request_uri !~ \"/wp-.*\"\r\n    | request_uri !~ \"//wp-.*\"\r\n    | request_uri !~ \"/.*wordfence.*\"\r\n    | request_uri !~ \"/robots.txt\"\r\n    | request_uri !~ \"/xmlrpc.php\"\r\n    | __error__=\"\"\r\n    [24h]\r\n  )\r\n)",
           "legendFormat": "",
           "queryType": "range",
           "refId": "A"
@@ -279,7 +279,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "sum(\r\n  count_over_time(\r\n    {filename=\"$filename\", host=\"$host\"}\r\n    | json\r\n    | http_user_agent !~ \".*bot.*\"\r\n    | http_user_agent !~ \".*crawler.*\"\r\n    | remote_addr !~ \"2001:4ca0:108:42::*\"\r\n    | remote_addr != \"62.210.149.41\"\r\n    | remote_addr != \"172.21.0.2\"\r\n    | remote_addr !~ \"91.134.156.*\"\r\n    | remote_addr !~ \"37.59.149.*\"\r\n    | http_user_agent != \"worldping-api\"\r\n    | request_uri !~ \"/wp-.*\"\r\n    | request_uri !~ \"//wp-.*\"\r\n    | request_uri !~ \"/.*wordfence.*\"\r\n    | request_uri !~ \"/robots.txt\"\r\n    | request_uri !~ \"/xmlrpc.php\"\r\n    | __error__=\"\"\r\n    [24h]\r\n  )\r\n)",
+          "expr": "sum(\r\n  count_over_time(\r\n    {filename=\"$filename\", host=\"$host\"}\r\n    | json\r\n    | http_user_agent !~ \".*bot.*\"\r\n    | http_user_agent !~ \".*crawler.*\"\r\n    | request_uri !~ \"/wp-.*\"\r\n    | request_uri !~ \"//wp-.*\"\r\n    | request_uri !~ \"/.*wordfence.*\"\r\n    | request_uri !~ \"/robots.txt\"\r\n    | request_uri !~ \"/xmlrpc.php\"\r\n    | __error__=\"\"\r\n    [24h]\r\n  )\r\n)",
           "instant": false,
           "legendFormat": "",
           "queryType": "range",
@@ -411,7 +411,7 @@
             "type": "loki",
             "uid": "ffvoaufgcyfpcd"
           },
-          "expr": "sum by (geoip_country_code) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | remote_addr !~ \"2001:4ca0:108:42::*\" | remote_addr !=\"62.210.149.41\" | remote_addr !~ \"91.134.156.*\" | remote_addr !~ \"37.59.149.*\" | http_user_agent != \"worldping-api\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" | __error__=\"\" [$__interval]))",
+          "expr": "sum by (geoip_country_code) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" | __error__=\"\" [$__interval]))",
           "legendFormat": "{{geoip_country_code}}",
           "queryType": "randomWalk",
           "refId": "A"
@@ -518,7 +518,7 @@
                 "type": "loki",
                 "uid": "ffvoaufgcyfpcd"
               },
-              "expr": "count(sum by (remote_addr) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | remote_addr !~ \"2001:4ca0:108:42::*\" | remote_addr !=\"62.210.149.41\" | remote_addr !~ \"91.134.156.*\" | remote_addr !~ \"37.59.149.*\" | http_user_agent != \"worldping-api\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" |  __error__=\"\" [1d])))",
+              "expr": "count(sum by (remote_addr) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" |  __error__=\"\" [1d])))",
               "legendFormat": "Unique user visit count",
               "refId": "A"
             }
@@ -607,7 +607,7 @@
                 "type": "loki",
                 "uid": "ffvoaufgcyfpcd"
               },
-              "expr": "count(sum by (remote_addr) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | remote_addr !~ \"2001:4ca0:108:42::*\" | remote_addr !=\"62.210.149.41\" | remote_addr !~ \"91.134.156.*\" | remote_addr !~ \"37.59.149.*\" | http_user_agent != \"worldping-api\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" |  __error__=\"\" [1d])))",
+              "expr": "count(sum by (remote_addr) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" |  __error__=\"\" [1d])))",
               "legendFormat": "Unique user visit count",
               "refId": "A"
             }
@@ -722,7 +722,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "topk(\r\n  5,\r\n  sum by (remote_addr) (\r\n    count_over_time(\r\n      {filename=\"$filename\", host=\"$host\"}\r\n      | json\r\n      | http_user_agent !~ \".*bot.*\"\r\n      | http_user_agent !~ \".*crawler.*\"\r\n      | remote_addr !~ \"2001:4ca0:108:42::*\"\r\n      | remote_addr != \"62.210.149.41\"\r\n      | remote_addr != \"172.21.0.2\"\r\n      | remote_addr != \"172.21.0.3\"\r\n      | remote_addr !~ \"91.134.156.*\"\r\n      | remote_addr !~ \"37.59.149.*\"\r\n      | http_user_agent != \"worldping-api\"\r\n      | request_uri !~ \"/wp-.*\"\r\n      | request_uri !~ \"//wp-.*\"\r\n      | request_uri !~ \"/*.wordfence.*\"\r\n      | request_uri !~ \"/robots.txt\"\r\n      | request_uri !~ \"/xmlrpc.php\"\r\n      | remote_addr != `217.131.101.19`\r\n      | __error__=\"\"\r\n      [$__interval]\r\n    )\r\n  )\r\n)",
+          "expr": "topk(\r\n  5,\r\n  sum by (remote_addr) (\r\n    count_over_time(\r\n      {filename=\"$filename\", host=\"$host\"}\r\n      | json\r\n      | http_user_agent !~ \".*bot.*\"\r\n      | http_user_agent !~ \".*crawler.*\"\r\n      | request_uri !~ \"/wp-.*\"\r\n      | request_uri !~ \"//wp-.*\"\r\n      | request_uri !~ \"/*.wordfence.*\"\r\n      | request_uri !~ \"/robots.txt\"\r\n      | request_uri !~ \"/xmlrpc.php\"\r\n      | __error__=\"\"\r\n      [$__interval]\r\n    )\r\n  )\r\n)",
           "legendFormat": "{{remote_addr}}",
           "queryType": "range",
           "refId": "A"
@@ -842,7 +842,7 @@
             "type": "loki",
             "uid": "ffvoaufgcyfpcd"
           },
-          "expr": "topk(10, sum by (http_referer) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | http_user_agent != \"worldping-api\" | http_referer != \"\" and http_referer !~ \".*?$host.*?\" | http_referer !~ \".*?panxora.*?\" | http_referer != \"http://192.168.120.55:9000/\" | __error__=\"\" [$__interval]))) ",
+          "expr": "topk(10, sum by (http_referer) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | http_referer != \"\" and http_referer !~ \".*?$host.*?\" | __error__=\"\" [$__interval]))) ",
           "legendFormat": "{{http_referer}}",
           "refId": "A"
         }
@@ -961,7 +961,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "topk(10,sum by (request_uri) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | request_uri != \"/\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" | remote_addr != `217.131.101.19` | __error__=\"\" [$__interval])))",
+          "expr": "topk(10,sum by (request_uri) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | request_uri != \"/\" | request_uri !~ \"/wp-.*\" | request_uri !~ \"//wp-.*\" | request_uri !~ \"/*.wordfence.*\" | request_uri !~ \"/robots.txt\" | request_uri !~ \"/xmlrpc.php\" | __error__=\"\" [$__interval])))",
           "legendFormat": "{{request_uri}}",
           "queryType": "range",
           "refId": "A"
@@ -1079,7 +1079,7 @@
             "type": "loki",
             "uid": "ffvoaufgcyfpcd"
           },
-          "expr": "topk(5, sum by (http_referer) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | http_user_agent != \"worldping-api\" | http_referer != \"\" and http_referer !~ \".*?$host.*?\" | __error__=\"\" [$__interval])))",
+          "expr": "topk(5, sum by (http_referer) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | http_referer != \"\" and http_referer !~ \".*?$host.*?\" | __error__=\"\" [$__interval])))",
           "legendFormat": "{{http_referer}}",
           "refId": "A"
         }
@@ -1196,7 +1196,7 @@
             "type": "loki",
             "uid": "ffvoaufgcyfpcd"
           },
-          "expr": "topk(10, sum by (http_user_agent) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" | http_user_agent != \"worldping-api\" |  __error__=\"\" [$__interval])))",
+          "expr": "topk(10, sum by (http_user_agent) (count_over_time({filename=\"$filename\", host=\"$host\"} | json | http_user_agent !~ \".*bot.*\" | http_user_agent !~ \".*crawler.*\" |  __error__=\"\" [$__interval])))",
           "legendFormat": "{{http_user_agent}}",
           "refId": "A"
         }
@@ -1622,7 +1622,7 @@
           },
           "direction": "backward",
           "editorMode": "code",
-          "expr": "{filename=\"$filename\", host=\"$host\"}\r\n| json \r\n| http_user_agent !~ `.*bot.*`\r\n| http_user_agent !~ `.*crawler.*`\r\n| remote_addr !~ `2001:4ca0:108:42::*`\r\n| remote_addr != `62.210.149.41`\r\n| remote_addr != `172.21.0.2`\r\n| remote_addr != `172.21.0.3`\r\n| remote_addr !~ `91.134.156.*`\r\n| remote_addr !~ `37.59.149.*`\r\n| http_user_agent != `worldping-api`\r\n| request_uri !~ `^/api/`\r\n| request_uri !~ `^/public/plugins/`\r\n| request_uri != `/livereload.js`\r\n| request_uri !~ `^/wp-`\r\n| request_uri != `/robots.txt`\r\n| request_uri != `/xmlrpc.php`\r\n| remote_addr != `217.131.101.19`\r\n| line_format `{{if eq .status \"200\"}}🟢{{else if eq .status \"201\"}}🟢{{else if eq .status \"301\"}}🟡{{else if eq .status \"302\"}}🟡{{else if eq .status \"304\"}}🟡{{else if eq .status \"400\"}}🟠{{else if eq .status \"401\"}}🟠{{else if eq .status \"403\"}}🟠{{else if eq .status \"404\"}}🟠{{else if eq .status \"500\"}}🔴{{else if eq .status \"502\"}}🔴{{else if eq .status \"503\"}}🔴{{else}}⚪{{end}} {{.status}} | 🌐 {{.remote_addr}} | {{.request_uri}}`",
+          "expr": "{filename=\"$filename\", host=\"$host\"}\r\n| json \r\n| http_user_agent !~ `.*bot.*`\r\n| http_user_agent !~ `.*crawler.*`\r\n| request_uri !~ `^/api/`\r\n| request_uri !~ `^/public/plugins/`\r\n| request_uri != `/livereload.js`\r\n| request_uri !~ `^/wp-`\r\n| request_uri != `/robots.txt`\r\n| request_uri != `/xmlrpc.php`\r\n| line_format `{{if eq .status \"200\"}}🟢{{else if eq .status \"201\"}}🟢{{else if eq .status \"301\"}}🟡{{else if eq .status \"302\"}}🟡{{else if eq .status \"304\"}}🟡{{else if eq .status \"400\"}}🟠{{else if eq .status \"401\"}}🟠{{else if eq .status \"403\"}}🟠{{else if eq .status \"404\"}}🟠{{else if eq .status \"500\"}}🔴{{else if eq .status \"502\"}}🔴{{else if eq .status \"503\"}}🔴{{else}}⚪{{end}} {{.status}} | 🌐 {{.remote_addr}} | {{.request_uri}}`",
           "legendFormat": "",
           "queryType": "range",
           "refId": "A"

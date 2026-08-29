@@ -299,8 +299,6 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "178.40.119.51": false,
-              "194.154.240.221": false,
               "label": true
             },
             "indexByName": {},

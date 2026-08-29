@@ -5,10 +5,47 @@ providers:
     folder: ""
     type: file
     disableDeletion: false
-    # false: provisioned dashboard'lar arayüzden kaydedilemez.
-    # true yapma -- Grafana kaydı kabul eder ama provisioning bir sonraki
-    # turunda (30 sn) sessizce geri alır. Düzenlemek için "Save as copy".
-    allowUiUpdates: false
+
+    # allowUiUpdates: true
+    #   Provisioned dashboard'lar arayuzden kaydedilebilir; kayit Grafana'nin
+    #   deposuna yazilir ve kalicidir.
+    #
+    # >> GRAFANA 12/13 TUZAGI <<
+    #   Grafana 13 dashboard'lari "unified storage"da tutar ve her kaydin
+    #   uzerine su etiketleri koyar:
+    #       grafana.app/managedBy          = classic-file-provisioning
+    #       grafana.app/managerAllowsEdits = <bu dosyadaki allowUiUpdates>
+    #       grafana.app/sourceChecksum     = dashboard JSON dosyasinin md5'i
+    #
+    #   Bu dosyadaki allowUiUpdates'i degistirip Grafana'yi yeniden baslatmak
+    #   TEK BASINA YETMEZ. Grafana, dashboard JSON dosyasinin checksum'i
+    #   degismediyse "bu dosyayi zaten isledim" deyip kaydi guncellemez;
+    #   managerAllowsEdits eski degeriyle kalir ve arayuz "Cannot save
+    #   provisioned dashboard" deyip JSON'i indirtmeye calisir.
+    #
+    #   Cozum: JSON dosyalarinin checksum'ini degistirip yeniden provision
+    #   ettir, sonra Grafana'yi yeniden baslat:
+    #       printf '\n' >> grafana/dashboards/*.json
+    #       docker compose restart grafana
+    #
+    #   Dogrulama -- hepsi true donmeli:
+    #       python3 - <<'PY'
+    #       import sqlite3, json
+    #       db = "/var/lib/docker/volumes/grafana_grafana-data/_data/grafana.db"
+    #       c = sqlite3.connect("file:%s?mode=ro" % db, uri=True)
+    #       for n, v in c.execute('select name,value from resource'
+    #                             ' where resource="dashboards"'):
+    #           d = json.loads(v if isinstance(v, str) else v.decode())
+    #           a = d["metadata"]["annotations"]
+    #           print(a.get("grafana.app/managerAllowsEdits"), d["spec"]["title"])
+    #       PY
+    #
+    # DIKKAT: JSON dosyasi degisirse DOSYA kazanir ve arayuzdeki duzenlemelerin
+    # uzerine yazar. Ayni dashboard icin ya dosyayi ya arayuzu kullan, ikisini
+    # karistirma. Arayuzdeki hali kalici olsun istiyorsan: Export -> JSON'i
+    # grafana/dashboards/ altindaki dosyaya yaz.
+    allowUiUpdates: true
+
     updateIntervalSeconds: 30
     options:
       path: /var/lib/grafana/dashboards

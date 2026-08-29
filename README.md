@@ -13,24 +13,51 @@ Dashboard'lar repoyla birlikte gelir — klonla, `up` de, hazır.
 
 | Servis | Ne yapar | Port |
 |---|---|---|
-| **grafana** | arayüz | `3000` |
+| **grafana** | arayüz | `127.0.0.1:3000` |
 | **prometheus** | metrik toplar | `127.0.0.1:9090` |
 | **node-exporter** | cpu / ram / disk / network | `127.0.0.1:9100` |
 | **blackbox-exporter** | site up/down, SSL, yanıt süresi | `127.0.0.1:9115` |
 | **loki** | log deposu | `127.0.0.1:3100` |
 | **promtail** | nginx + auth loglarını Loki'ye taşır | `127.0.0.1:9080` |
 
-Grafana dışındaki her şey `127.0.0.1`'e bağlıdır, dışarıdan erişilemez.
+Her servis `127.0.0.1`'e bağlıdır; hiçbiri dışarıdan doğrudan erişilemez.
+Grafana'ya nasıl bağlanacağın aşağıda.
 
 ## Hızlı başlangıç
 
 ```bash
 git clone <repo-url> monitoring && cd monitoring
-cp .env.example .env        # şifreyi değiştir
+cp .env.example .env               # şifreyi değiştir
+docker network create monitoring   # bir kereye mahsus, aşağıya bak
 docker compose up -d
 ```
 
-`http://SUNUCU_IP:3000` → `admin` / `.env`'de belirlediğin şifre.
+> **`monitoring` ağını neden elle oluşturuyoruz?**
+> `docker-compose.yml` ağı `external: true` ile kullanır, yani compose onu
+> oluşturmaz — hazır bulmayı bekler. Böylece ağın adı ve subnet'i proje
+> adından bağımsız ve sabit kalır. Reverse proxy'de konteyner subnet'ine
+> göre yazılmış bir `allow` kuralın varsa (blackbox-exporter'ın kendi
+> Grafana'nı problaması için gerekir) bu kural `down`/`up` döngülerinde
+> bozulmaz. Ağ yoksa `up` şunu der:
+> `network monitoring declared as external, but could not be found`.
+
+Grafana `127.0.0.1:3000`'e bağlıdır, dışarı kapalıdır. Tarayıcıdan açmak için
+en hızlı yol SSH tüneli:
+
+```bash
+ssh -L 3000:127.0.0.1:3000 kullanici@sunucu
+# sonra tarayıcıda: http://localhost:3000
+```
+
+Giriş: `admin` / `.env`'de belirlediğin şifre.
+
+Kalıcı erişim istiyorsan önüne nginx/caddy gibi bir reverse proxy + TLS koy.
+Portu doğrudan dışarı açmak yerine proxy'nin arkasında bırak.
+
+> Şifreyi unutursan `.env` işe yaramaz — `.env` yalnızca `grafana-data`
+> volume'ü **boşken**, ilk açılışta uygulanır. Sonrasında şifre Grafana'nın
+> kendi veritabanındadır. Sıfırlamak için:
+> `docker exec -it grafana grafana-cli admin reset-admin-password 'yeni'`
 
 Datasource'lar (Prometheus + Loki) ve 6 dashboard otomatik yüklenir, elle bir şey
 eklemene gerek yok.
@@ -94,13 +121,27 @@ adresleri duruyor, kendi domainlerinle değiştir:
 ```yaml
     static_configs:
       - targets:
-          - https://muratakpinar.com.tr
-          - https://grafana.muratakpinar.com.tr
+          - https://website.com.tr
+          - https://grafana.website.com.tr
 ```
 
 ```bash
 docker compose restart prometheus
 ```
+
+### Kendi trafiğini istatistikten çıkarmak
+
+Nginx dashboard'undaki paneller genel gürültüyü (bot, crawler, `/wp-*`,
+`wordfence`, `robots.txt`, `xmlrpc.php`) zaten eliyor. Kendi IP'ni ya da izleme
+sistemlerini de elemek istersen, panelin sorgusuna bir satır ekle:
+
+```logql
+| remote_addr != "1.2.3.4"
+```
+
+Konteynerlerin kendi trafiğini elemek için (blackbox-exporter kendi Grafana'nı
+problar) aynı şekilde konteyner IP'sini ekleyebilirsin — `docker inspect` ile
+öğrenirsin. Bu repo bilinçli olarak hiçbir IP'yi sabit içermez.
 
 ### Yeni log kaynağı
 
@@ -122,17 +163,33 @@ docker compose restart prometheus
 
 ### Dashboard'ları değiştirmek
 
-Provisioned dashboard'lar arayüzden **kaydedilemez** — Grafana
-`Cannot save provisioned dashboard` der. Bu bilinçli: provisioning tek yönlü
-çalışır (dosya → Grafana) ve her turda dosyadaki hâli geri yazar, yani arayüzdeki
-düzenleme kalıcı olamaz.
+Bu repoda `allowUiUpdates: true` ayarlı, yani provisioned dashboard'ları
+**arayüzden düzenleyip kaydedebilirsin**. Kayıt Grafana'nın deposuna yazılır.
 
-İki yolun var:
+Alternatif olarak `grafana/dashboards/*.json` dosyasını düzenleyebilirsin;
+provisioning 30 saniyede bir tarar, restart gerekmez.
 
-1. **Kendi kopyanı çıkar** — dashboard'da **Save as copy**. Kopya provisioning'e
-   tabi değildir, istediğin gibi düzenlersin, kalıcıdır.
-2. **Dosyayı düzenle** — `grafana/dashboards/*.json`. Provisioning 30 saniyede
-   bir tarar, `docker compose restart grafana` bile gerekmez.
+> **Aynı dashboard için ikisini karıştırma.** JSON dosyası değişirse *dosya*
+> kazanır ve arayüzdeki düzenlemelerin üzerine yazar. Arayüzdeki hâli repoya
+> kalıcı işlemek için: **Export → JSON**, çıkanı ilgili dosyaya yaz.
+
+#### Grafana 12/13'te kaydetme çalışmıyorsa
+
+Grafana 13 dashboard'ları "unified storage"da tutar ve her kaydın üzerine
+`grafana.app/managerAllowsEdits` etiketini koyar. Bu etiket, dashboard JSON
+dosyası **ilk provision edildiği andaki** `allowUiUpdates` değerinden gelir.
+
+Sonuç: `dashboard.yml`'yi sonradan değiştirip Grafana'yı yeniden başlatmak
+tek başına yetmez. JSON dosyasının checksum'ı değişmediyse Grafana "bunu
+zaten işledim" deyip kaydı güncellemez, etiket eski değeriyle kalır ve
+arayüz `Cannot save provisioned dashboard` deyip JSON'ı indirtir.
+
+Çözüm — checksum'ı değiştirip yeniden provision ettir:
+
+```bash
+printf '\n' >> grafana/dashboards/*.json
+docker compose restart grafana
+```
 
 Yeni dashboard eklemek için JSON'ı `grafana/dashboards/` altına koyman yeterli.
 
@@ -154,8 +211,11 @@ grafana/dashboards/*.json          dashboard'ların kendisi
 - **Ülke kırılımı paneli boş kalır.** Nginx dashboard'u `geoip_country_code`
   alanını bekler; bu alan nginx'in `ngx_http_geoip2_module`'ü kurulu değilse
   üretilmez.
-- Grafana `3000` portunda dışarı açıktır. Önüne reverse proxy + TLS koy, ya da
-  `docker-compose.yml`'de `"127.0.0.1:3000:3000"` yapıp öyle proxy'le.
+- Grafana varsayılan olarak `127.0.0.1:3000`'e bağlıdır, dışarıdan erişilemez.
+  Doğrudan açmak istersen `docker-compose.yml`'de `"3000:3000"` yap — ama o
+  zaman önüne TLS + kimlik doğrulama koymadan bırakma.
+- `monitoring` ağı `external: true`; `docker network create monitoring` ile
+  önceden oluşturulmuş olmalı.
 - Compose proje adı `grafana` olarak sabitlenmiştir (`name: grafana`), böylece
   volume adları dizin adından bağımsızdır.
 
