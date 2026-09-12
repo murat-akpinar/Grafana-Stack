@@ -209,7 +209,8 @@ docker-compose.yml
 prometheus.yml                     prometheus scrape ayarları
 loki/loki-config.yaml
 promtail/promtail.yaml             log kaynakları + host label çıkarımı
-nginx/log-json.conf                nginx JSON log formatı (kopyalanacak)grafana/provisioning/datasources/  Prometheus + Loki tanımı
+nginx/log-json.conf                nginx JSON log formatı (kopyalanacak)
+grafana/provisioning/datasources/  Prometheus + Loki tanımı
 grafana/provisioning/dashboards/   dashboard yükleyici
 grafana/dashboards/*.json          dashboard'ların kendisi
 ```
