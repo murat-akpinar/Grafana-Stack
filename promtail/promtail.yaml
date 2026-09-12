@@ -24,6 +24,20 @@ scrape_configs:
             host: host
       - labels:
           host:
+      # İSTEĞE BAĞLI — dashboard'un host listesinde sadece kendi siten kalsın.
+      # Botlar ve DNS'i yanlışlıkla senin IP'ni gösteren yabancı domainler her
+      # Host başlığıyla gelir; hepsi ayrı bir host label'ı olur. Aşağıdaki blok
+      # regex'e uymayan satırları Loki'ye göndermez (dosyada kalırlar).
+      # host label'ı hiç olmayan satırlar da düşer.
+      #
+      # ESCAPE'E DİKKAT: nokta için \\. yaz (LogQL string'i \. kabul etmez).
+      # Backtick (`...`) Loki sorgusunda çalışır ama promtail'in selector'ı
+      # reddeder; `-check-syntax` bunu yakalamaz, promtail restart döngüsüne girer.
+      #
+      # - match:
+      #     selector: '{host!~"(www\\.)?example\\.com"}'
+      #     action: drop
+      #     drop_counter_reason: site_disi_host
 
   # ssh (auth) log — ham satır yeterli, dashboard | pattern ile ayrıştırıyor
   - job_name: authlog
