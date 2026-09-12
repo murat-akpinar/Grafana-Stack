@@ -112,12 +112,10 @@ seçicisi buna dayanır. Bu adım atlanırsa paneller "No data" der.
 
 Dashboard'un `host` listesi, isteklerin gönderdiği `Host` başlığından gelir.
 IP'ni tarayan botlar ve DNS kaydı senin IP'ni gösteren yabancı domainler de
-buraya düşer. nginx'te `default_server` yoksa bu isteklere siten 200 ile sunulur.
+buraya düşer.
 
-1. `nginx/catchall.conf` — tanımadığın Host'ları nginx'te 444 ile kapatır.
-   Kurulumu dosyanın başında.
-2. `promtail/promtail.yaml` — yorum satırındaki `match` bloğunu açıp kendi
-   domainini yazarsan Loki'ye sadece senin sitenin satırları gider.
+`promtail/promtail.yaml`'daki yorum satırı hâlindeki `match` bloğunu açıp kendi
+domainini yazarsan Loki'ye sadece senin sitenin satırları gider.
 
 Nginx kullanmıyorsan `promtail/promtail.yaml`'daki `nginx` bloğunu ve
 `docker-compose.yml`'deki `/var/log/nginx` mount'unu sil.
@@ -211,9 +209,7 @@ docker-compose.yml
 prometheus.yml                     prometheus scrape ayarları
 loki/loki-config.yaml
 promtail/promtail.yaml             log kaynakları + host label çıkarımı
-nginx/log-json.conf                nginx JSON log formatı (kopyalanacak)
-nginx/catchall.conf                tanımsız Host'ları 444 ile kapatan default_server
-grafana/provisioning/datasources/  Prometheus + Loki tanımı
+nginx/log-json.conf                nginx JSON log formatı (kopyalanacak)grafana/provisioning/datasources/  Prometheus + Loki tanımı
 grafana/provisioning/dashboards/   dashboard yükleyici
 grafana/dashboards/*.json          dashboard'ların kendisi
 ```
