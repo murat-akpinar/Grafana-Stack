@@ -1875,11 +1875,11 @@
       {
         "current": {},
         "datasource": {
-          "type": "loki",
-          "uid": "ffvoaufgcyfpcd"
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
         },
-        "definition": "",
-        "description": "Instance label from Loki datasource.",
+        "definition": "label_values(promtail_build_info,instance)",
+        "description": "Instance label from Prometheus datasource.",
         "hide": 0,
         "includeAll": false,
         "label": "Instance",
@@ -1887,10 +1887,9 @@
         "name": "instance",
         "options": [],
         "query": {
-          "label": "instance",
-          "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "",
-          "type": 1
+          "qryType": 1,
+          "query": "label_values(promtail_build_info,instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
