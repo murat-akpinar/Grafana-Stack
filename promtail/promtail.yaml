@@ -45,4 +45,6 @@ scrape_configs:
       - targets: ['localhost']
         labels:
           job: authlog
-          __path__: /var/log/auth.log
+          # instance label'i promtail/ssh dashboard'larinin $instance degiskeni icin
+          instance: ubuntu
+          __path__: /var/log/host/auth.log

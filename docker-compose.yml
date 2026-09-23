@@ -76,7 +76,11 @@ services:
       - "127.0.0.1:9080:9080"
     volumes:
       - /var/log/nginx:/var/log/nginx:ro
-      - /var/log/auth.log:/var/log/auth.log:ro
+      # /var/log DIZIN olarak baglanir, tek dosya olarak degil: docker bind
+      # mount inode'a baglanir, logrotate auth.log'u auth.log.1'e rename edip
+      # yeni inode acinca container eski (olu) dosyada takili kalir ve ssh
+      # loglari akmayi keser. Dizin mount'unda isim her acilista cozulur.
+      - /var/log:/var/log/host:ro
       - ./promtail/promtail.yaml:/etc/promtail/config.yaml:ro
       - promtail-positions:/promtail
     command: -config.file=/etc/promtail/config.yaml
